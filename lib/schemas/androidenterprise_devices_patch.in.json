@@ -1,0 +1,149 @@
+{
+    "type": "object",
+    "properties": {
+        "deviceId": {
+            "required": true,
+            "type": "string"
+        },
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "updateMask": {
+            "type": "string"
+        },
+        "userId": {
+            "required": true,
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A Devices resource represents a mobile device managed by the EMM and belonging to a specific enterprise user.",
+            "properties": {
+                "androidId": {
+                    "description": "The Google Play Services Android ID for the device encoded as a lowercase hex string. For example, \"123456789abcdef0\".",
+                    "type": "string"
+                },
+                "kind": {
+                    "default": "androidenterprise#device",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#device\".",
+                    "type": "string"
+                },
+                "managementType": {
+                    "description": "Identifies the extent to which the device is controlled by a managed Google Play EMM in various deployment configurations.\n\nPossible values include: \n- \"managedDevice\", a device that has the EMM's device policy controller (DPC) as the device owner. \n- \"managedProfile\", a device that has a profile managed by the DPC (DPC is profile owner) in addition to a separate, personal profile that is unavailable to the DPC. \n- \"containerApp\", no longer used (deprecated). \n- \"unmanagedProfile\", a device that has been allowed (by the domain's admin, using the Admin Console to enable the privilege) to use managed Google Play, but the profile is itself not owned by a DPC.",
+                    "type": "string"
+                },
+                "policy": {
+                    "description": "The policy enforced on the device.",
+                    "properties": {
+                        "autoUpdatePolicy": {
+                            "description": "The auto-update policy for apps installed on the device. \"choiceToTheUser\" allows the device's user to configure the app update policy. \"always\" enables auto updates. \"never\" disables auto updates. \"wifiOnly\" enables auto updates only when the device is connected to wifi.",
+                            "type": "string"
+                        },
+                        "maintenanceWindow": {
+                            "description": "The maintenance window defining when apps running in the foreground should be updated.",
+                            "properties": {
+                                "durationMs": {
+                                    "description": "Duration of the maintenance window, in milliseconds. The duration must be between 30 minutes and 24 hours (inclusive).",
+                                    "format": "int64",
+                                    "type": "string"
+                                },
+                                "startTimeAfterMidnightMs": {
+                                    "description": "Start time of the maintenance window, in milliseconds after midnight on the device. Windows can span midnight.",
+                                    "format": "int64",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "productAvailabilityPolicy": {
+                            "description": "The availability granted to the device for the specified products. \"all\" gives the device access to all products, regardless of approval status. \"all\" does not enable automatic visibility of \"alpha\" or \"beta\" tracks. \"whitelist\" grants the device access the products specified in productPolicy[]. Only products that are approved or products that were previously approved (products with revoked approval) by the enterprise can be whitelisted. If no value is provided, the availability set at the user level is applied by default.",
+                            "type": "string"
+                        },
+                        "productPolicy": {
+                            "description": "The list of product policies.",
+                            "items": {
+                                "description": "The policy for a product.",
+                                "properties": {
+                                    "autoInstallPolicy": {
+                                        "description": "The auto-install policy for the product.",
+                                        "properties": {
+                                            "autoInstallConstraint": {
+                                                "description": "The constraints for auto-installing the app. You can specify a maximum of one constraint.",
+                                                "items": {
+                                                    "description": "The auto-install constraint. Defines a set of restrictions for installation. At least one of the fields must be set.",
+                                                    "properties": {
+                                                        "chargingStateConstraint": {
+                                                            "description": "Charging state constraint.",
+                                                            "type": "string"
+                                                        },
+                                                        "deviceIdleStateConstraint": {
+                                                            "description": "Device idle state constraint.",
+                                                            "type": "string"
+                                                        },
+                                                        "networkTypeConstraint": {
+                                                            "description": "Network type constraint.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "autoInstallMode": {
+                                                "description": "The auto-install mode. If unset defaults to \"doNotAutoInstall\".",
+                                                "type": "string"
+                                            },
+                                            "autoInstallPriority": {
+                                                "description": "The priority of the install, as an unsigned integer. A lower number means higher priority.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "minimumVersionCode": {
+                                                "description": "The minimum version of the app. If a lower version of the app is installed, then the app will be auto-updated according to the auto-install constraints, instead of waiting for the regular auto-update.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "productId": {
+                                        "description": "The ID of the product. For example, \"app:com.google.android.gm\".",
+                                        "type": "string"
+                                    },
+                                    "trackIds": {
+                                        "description": "Grants the device visibility to the specified product release track(s), identified by trackIds. The list of release tracks of a product can be obtained by calling Products.Get.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "tracks": {
+                                        "description": "Deprecated. Use trackIds instead.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

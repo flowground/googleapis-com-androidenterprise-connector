@@ -1,0 +1,64 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "userId": {
+            "required": true,
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A Users resource represents an account associated with an enterprise. The account may be specific to a device or to an individual user (who can then use the account across multiple devices). The account may provide access to managed Google Play only, or to other Google services, depending on the identity model: \n- The Google managed domain identity model requires synchronization to Google account sources (via primaryEmail). \n- The managed Google Play Accounts identity model provides a dynamic means for enterprises to create user or device accounts as needed. These accounts provide access to managed Google Play.",
+            "properties": {
+                "accountIdentifier": {
+                    "description": "A unique identifier you create for this user, such as \"user342\" or \"asset#44418\". Do not use personally identifiable information (PII) for this property. Must always be set for EMM-managed users. Not set for Google-managed users.",
+                    "type": "string"
+                },
+                "accountType": {
+                    "description": "The type of account that this user represents. A userAccount can be installed on multiple devices, but a deviceAccount is specific to a single device. An EMM-managed user (emmManaged) can be either type (userAccount, deviceAccount), but a Google-managed user (googleManaged) is always a userAccount.",
+                    "type": "string"
+                },
+                "displayName": {
+                    "description": "The name that will appear in user interfaces. Setting this property is optional when creating EMM-managed users. If you do set this property, use something generic about the organization (such as \"Example, Inc.\") or your name (as EMM). Not used for Google-managed user accounts.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "The unique ID for the user.",
+                    "type": "string"
+                },
+                "kind": {
+                    "default": "androidenterprise#user",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#user\".",
+                    "type": "string"
+                },
+                "managementType": {
+                    "description": "The entity that manages the user. With googleManaged users, the source of truth is Google so EMMs have to make sure a Google Account exists for the user. With emmManaged users, the EMM is in charge.",
+                    "type": "string"
+                },
+                "primaryEmail": {
+                    "description": "The user's primary email address, for example, \"jsmith@example.com\". Will always be set for Google managed users and not set for EMM managed users.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

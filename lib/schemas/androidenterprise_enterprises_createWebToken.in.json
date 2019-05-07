@@ -1,0 +1,104 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Specification for a token used to generate iframes. The token specifies what data the admin is allowed to modify and the URI the iframe is allowed to communiate with.",
+            "properties": {
+                "kind": {
+                    "default": "androidenterprise#administratorWebTokenSpec",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#administratorWebTokenSpec\".",
+                    "type": "string"
+                },
+                "managedConfigurations": {
+                    "description": "Options for displaying the Managed Configuration page.",
+                    "properties": {
+                        "enabled": {
+                            "description": "Whether the Managed Configuration page is displayed. Default is true.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "parent": {
+                    "description": "The URI of the parent frame hosting the iframe. To prevent XSS, the iframe may not be hosted at other URIs. This URI must be https.",
+                    "type": "string"
+                },
+                "permission": {
+                    "description": "Deprecated. Use PlaySearch.approveApps.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "playSearch": {
+                    "description": "Options for displaying the managed Play Search apps page.",
+                    "properties": {
+                        "approveApps": {
+                            "description": "Allow access to the iframe in approve mode. Default is false.",
+                            "type": "boolean"
+                        },
+                        "enabled": {
+                            "description": "Whether the managed Play Search apps page is displayed. Default is true.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "privateApps": {
+                    "description": "Options for displaying the Private Apps page.",
+                    "properties": {
+                        "enabled": {
+                            "description": "Whether the Private Apps page is displayed. Default is true.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "storeBuilder": {
+                    "description": "Options for displaying the Organize apps page.",
+                    "properties": {
+                        "enabled": {
+                            "description": "Whether the Organize apps page is displayed. Default is true.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "webApps": {
+                    "description": "Options for displaying the Web Apps page.",
+                    "properties": {
+                        "enabled": {
+                            "description": "Whether the Web Apps page is displayed. Default is true.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

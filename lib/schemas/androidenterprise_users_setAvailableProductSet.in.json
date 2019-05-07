@@ -1,0 +1,79 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "userId": {
+            "required": true,
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A set of products.",
+            "properties": {
+                "kind": {
+                    "default": "androidenterprise#productSet",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#productSet\".",
+                    "type": "string"
+                },
+                "productId": {
+                    "description": "The list of product IDs making up the set of products.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "productSetBehavior": {
+                    "description": "The interpretation of this product set. \"unknown\" should never be sent and is ignored if received. \"whitelist\" means that the user is entitled to access the product set. \"includeAll\" means that all products are accessible, including products that are approved, products with revoked approval, and products that have never been approved. \"allApproved\" means that the user is entitled to access all products that are approved for the enterprise. If the value is \"allApproved\" or \"includeAll\", the productId field is ignored. If no value is provided, it is interpreted as \"whitelist\" for backwards compatibility. Further \"allApproved\" or \"includeAll\" does not enable automatic visibility of \"alpha\" or \"beta\" tracks for Android app. Use ProductVisibility to enable \"alpha\" or \"beta\" tracks per user.",
+                    "type": "string"
+                },
+                "productVisibility": {
+                    "description": "Additional list of product IDs making up the product set. Unlike the productID array, in this list It's possible to specify which tracks (alpha, beta, production) of a product are visible to the user. See ProductVisibility and its fields for more information. Specifying the same product ID both here and in the productId array is not allowed and it will result in an error.",
+                    "items": {
+                        "description": "A product to be made visible to a user.",
+                        "properties": {
+                            "productId": {
+                                "description": "The product ID to make visible to the user. Required for each item in the productVisibility list.",
+                                "type": "string"
+                            },
+                            "trackIds": {
+                                "description": "Grants the user visibility to the specified product track(s), identified by trackIds.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "tracks": {
+                                "description": "Deprecated. Use trackIds instead.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

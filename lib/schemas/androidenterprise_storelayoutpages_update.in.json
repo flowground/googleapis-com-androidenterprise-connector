@@ -1,0 +1,69 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "pageId": {
+            "required": true,
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Definition of a managed Google Play store page, made of a localized name and links to other pages. A page also contains clusters defined as a subcollection.",
+            "properties": {
+                "id": {
+                    "description": "Unique ID of this page. Assigned by the server. Immutable once assigned.",
+                    "type": "string"
+                },
+                "kind": {
+                    "default": "androidenterprise#storePage",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#storePage\".",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "Ordered list of pages a user should be able to reach from this page. The list can't include this page. It is recommended that the basic pages are created first, before adding the links between pages.\n\nThe API doesn't verify that the pages exist or the pages are reachable.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "description": "Ordered list of localized strings giving the name of this page. The text displayed is the one that best matches the user locale, or the first entry if there is no good match. There needs to be at least one entry.",
+                    "items": {
+                        "description": "A localized string with its locale.",
+                        "properties": {
+                            "locale": {
+                                "description": "The BCP47 tag for a locale. (e.g. \"en-US\", \"de\").",
+                                "type": "string"
+                            },
+                            "text": {
+                                "description": "The text localized in the associated locale.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

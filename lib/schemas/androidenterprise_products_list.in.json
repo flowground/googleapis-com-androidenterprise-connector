@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "properties": {
+        "approved": {
+            "type": "boolean"
+        },
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "language": {
+            "type": "string"
+        },
+        "maxResults": {
+            "type": "integer"
+        },
+        "query": {
+            "type": "string"
+        },
+        "token": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        }
+    }
+}

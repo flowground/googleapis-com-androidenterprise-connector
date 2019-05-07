@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A service account that can be used to authenticate as the enterprise to API calls that require such authentication.",
+            "properties": {
+                "accountEmail": {
+                    "description": "The email address of the service account.",
+                    "type": "string"
+                },
+                "kind": {
+                    "default": "androidenterprise#enterpriseAccount",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#enterpriseAccount\".",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

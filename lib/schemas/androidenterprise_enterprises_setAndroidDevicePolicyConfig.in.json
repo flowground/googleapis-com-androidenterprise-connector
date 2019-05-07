@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Deprecated and unused.",
+            "properties": {
+                "kind": {
+                    "default": "androidenterprise#androidDevicePolicyConfig",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#androidDevicePolicyConfig\".",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "Deprecated and unused.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

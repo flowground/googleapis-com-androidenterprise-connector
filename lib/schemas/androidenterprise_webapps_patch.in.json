@@ -1,0 +1,74 @@
+{
+    "type": "object",
+    "properties": {
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "webAppId": {
+            "required": true,
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "WebApp resource info.",
+            "properties": {
+                "displayMode": {
+                    "description": "The display mode of the web app.",
+                    "type": "string"
+                },
+                "icons": {
+                    "description": "A list of icons representing this website. If absent, a default icon (for create) or the current icon (for update) will be used.",
+                    "items": {
+                        "description": "Icon for a web app.",
+                        "properties": {
+                            "imageData": {
+                                "description": "The actual bytes of the image in a base64url encoded string (c.f. RFC4648, section 5 \"Base 64 Encoding with URL and Filename Safe Alphabet\").  \n- The image type can be png or jpg.\n- The image should ideally be square.\n- The image should ideally have a size of 512x512.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "isPublished": {
+                    "description": "A flag whether the app has been published to the Play store yet.",
+                    "type": "boolean"
+                },
+                "startUrl": {
+                    "description": "The start URL, i.e. the URL that should load when the user opens the application.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The title of the web application as displayed to the user (e.g., amongst a list of other applications, or as a label for an icon).",
+                    "type": "string"
+                },
+                "versionCode": {
+                    "description": "The current version of the app.\n\n\nNote that the version can automatically increase during the lifetime of the web app, while Google does internal housekeeping to keep the web app up-to-date.",
+                    "format": "int64",
+                    "type": "string"
+                },
+                "webAppId": {
+                    "description": "The ID of the application.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

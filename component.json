@@ -1,0 +1,1512 @@
+{
+    "title": "Google Play EMM",
+    "description": "Manages the deployment of apps to Android for Work users.",
+    "docsUrl": "https://developers.google.com/android/work/play/emm-api",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/androidenterprise/v1/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://www.googleapis.com/androidenterprise/v1",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "Oauth2": {
+                "label": "Oauth 2.0 authentication",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "androidenterprise_enterprises_list": {
+            "main": "./lib/actions/androidenterprise_enterprises_list.js",
+            "title": "Looks up an enterprise by domain name. This is only supported for enterprises created via the Google-initiated creation flow. Lookup of the id is not needed for enterprises created via the EMM-initiated flow since the EMM learns the enterprise ID in the callback specified in the Enterprises.generateSignupUrl call.",
+            "description": "Looks up an enterprise by domain name. This is only supported for enterprises created via the Google-initiated creation flow. Lookup of the id is not needed for enterprises created via the EMM-initiated flow since the EMM learns the enterprise ID in the callback specified in the Enterprises.generateSignupUrl call.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_acknowledgeNotificationSet": {
+            "main": "./lib/actions/androidenterprise_enterprises_acknowledgeNotificationSet.js",
+            "title": "Acknowledges notifications that were received from Enterprises.PullNotificationSet to prevent subsequent calls from returning the same notifications.",
+            "description": "Acknowledges notifications that were received from Enterprises.PullNotificationSet to prevent subsequent calls from returning the same notifications.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_acknowledgeNotificationSet.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_completeSignup": {
+            "main": "./lib/actions/androidenterprise_enterprises_completeSignup.js",
+            "title": "Completes the signup flow, by specifying the Completion token and Enterprise token. This request must not be called multiple times for a given Enterprise Token.",
+            "description": "Completes the signup flow, by specifying the Completion token and Enterprise token. This request must not be called multiple times for a given Enterprise Token.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_completeSignup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_enroll": {
+            "main": "./lib/actions/androidenterprise_enterprises_enroll.js",
+            "title": "Enrolls an enterprise with the calling EMM.",
+            "description": "Enrolls an enterprise with the calling EMM.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_enroll.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_pullNotificationSet": {
+            "main": "./lib/actions/androidenterprise_enterprises_pullNotificationSet.js",
+            "title": "Pulls and returns a notification set for the enterprises associated with the service account authenticated for the request. The notification set may be empty if no notification are pending.\nA notification set returned needs to be acknowledged within 20 seconds by calling Enterprises.AcknowledgeNotificationSet, unless the notification set is empty.\nNotifications that are not acknowledged within the 20 seconds will eventually be included again in the response to another PullNotificationSet request, and those that are never acknowledged will ultimately be deleted according to the Google Cloud Platform Pub/Sub system policy.\nMultiple requests might be performed concurrently to retrieve notifications, in which case the pending notifications (if any) will be split among each caller, if any are pending.\nIf no notifications are present, an empty notification list is returned. Subsequent requests may return more notifications once they become available.",
+            "description": "Pulls and returns a notification set for the enterprises associated with the service account authenticated for the request. The notification set may be empty if no notification are pending.\nA notification set returned needs to be acknowledged within 20 seconds by calling Enterprises.AcknowledgeNotificationSet, unless the notification set is empty.\nNotifications that are not acknowledged within the 20 seconds will eventually be included again in the response to another PullNotificationSet request, and those that are never acknowledged will ultimately be deleted according to the Google Cloud Platform Pub/Sub system policy.\nMultiple requests might be performed concurrently to retrieve notifications, in which case the pending notifications (if any) will be split among each caller, if any are pending.\nIf no notifications are present, an empty notification list is returned. Subsequent requests may return more notifications once they become available.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_pullNotificationSet.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_generateSignupUrl": {
+            "main": "./lib/actions/androidenterprise_enterprises_generateSignupUrl.js",
+            "title": "Generates a sign-up URL.",
+            "description": "Generates a sign-up URL.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_generateSignupUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_get": {
+            "main": "./lib/actions/androidenterprise_enterprises_get.js",
+            "title": "Retrieves the name and domain of an enterprise.",
+            "description": "Retrieves the name and domain of an enterprise.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_setAccount": {
+            "main": "./lib/actions/androidenterprise_enterprises_setAccount.js",
+            "title": "Sets the account that will be used to authenticate to the API as the enterprise.",
+            "description": "Sets the account that will be used to authenticate to the API as the enterprise.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_setAccount.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_setAndroidDevicePolicyConfig": {
+            "main": "./lib/actions/androidenterprise_enterprises_setAndroidDevicePolicyConfig.js",
+            "title": "Deprecated and unused.",
+            "description": "Deprecated and unused.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_setAndroidDevicePolicyConfig.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_createWebToken": {
+            "main": "./lib/actions/androidenterprise_enterprises_createWebToken.js",
+            "title": "Returns a unique token to access an embeddable UI. To generate a web UI, pass the generated token into the managed Google Play javascript API. Each token may only be used to start one UI session. See the javascript API documentation for further information.",
+            "description": "Returns a unique token to access an embeddable UI. To generate a web UI, pass the generated token into the managed Google Play javascript API. Each token may only be used to start one UI session. See the javascript API documentation for further information.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_createWebToken.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_grouplicenses_list": {
+            "main": "./lib/actions/androidenterprise_grouplicenses_list.js",
+            "title": "Retrieves IDs of all products for which the enterprise has a group license.",
+            "description": "Retrieves IDs of all products for which the enterprise has a group license.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_grouplicenses_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_grouplicenses_get": {
+            "main": "./lib/actions/androidenterprise_grouplicenses_get.js",
+            "title": "Retrieves details of an enterprise's group license for a product.",
+            "description": "Retrieves details of an enterprise's group license for a product.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_grouplicenses_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_grouplicenseusers_list": {
+            "main": "./lib/actions/androidenterprise_grouplicenseusers_list.js",
+            "title": "Retrieves the IDs of the users who have been granted entitlements under the license.",
+            "description": "Retrieves the IDs of the users who have been granted entitlements under the license.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_grouplicenseusers_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_list": {
+            "main": "./lib/actions/androidenterprise_products_list.js",
+            "title": "Finds approved products that match a query, or all approved products if there is no query.",
+            "description": "Finds approved products that match a query, or all approved products if there is no query.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_get": {
+            "main": "./lib/actions/androidenterprise_products_get.js",
+            "title": "Retrieves details of a product for display to an enterprise admin.",
+            "description": "Retrieves details of a product for display to an enterprise admin.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_getAppRestrictionsSchema": {
+            "main": "./lib/actions/androidenterprise_products_getAppRestrictionsSchema.js",
+            "title": "Retrieves the schema that defines the configurable properties for this product. All products have a schema, but this schema may be empty if no managed configurations have been defined. This schema can be used to populate a UI that allows an admin to configure the product. To apply a managed configuration based on the schema obtained using this API, see Managed Configurations through Play.",
+            "description": "Retrieves the schema that defines the configurable properties for this product. All products have a schema, but this schema may be empty if no managed configurations have been defined. This schema can be used to populate a UI that allows an admin to configure the product. To apply a managed configuration based on the schema obtained using this API, see Managed Configurations through Play.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_getAppRestrictionsSchema.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_approve": {
+            "main": "./lib/actions/androidenterprise_products_approve.js",
+            "title": "Approves the specified product and the relevant app permissions, if any. The maximum number of products that you can approve per enterprise customer is 1,000.\n\nTo learn how to use managed Google Play to design and create a store layout to display approved products to your users, see Store Layout Design.",
+            "description": "Approves the specified product and the relevant app permissions, if any. The maximum number of products that you can approve per enterprise customer is 1,000.\n\nTo learn how to use managed Google Play to design and create a store layout to display approved products to your users, see Store Layout Design.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_approve.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_generateApprovalUrl": {
+            "main": "./lib/actions/androidenterprise_products_generateApprovalUrl.js",
+            "title": "Generates a URL that can be rendered in an iframe to display the permissions (if any) of a product. An enterprise admin must view these permissions and accept them on behalf of their organization in order to approve that product.\n\nAdmins should accept the displayed permissions by interacting with a separate UI element in the EMM console, which in turn should trigger the use of this URL as the approvalUrlInfo.approvalUrl property in a Products.approve call to approve the product. This URL can only be used to display permissions for up to 1 day.",
+            "description": "Generates a URL that can be rendered in an iframe to display the permissions (if any) of a product. An enterprise admin must view these permissions and accept them on behalf of their organization in order to approve that product.\n\nAdmins should accept the displayed permissions by interacting with a separate UI element in the EMM console, which in turn should trigger the use of this URL as the approvalUrlInfo.approvalUrl property in a Products.approve call to approve the product. This URL can only be used to display permissions for up to 1 day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_generateApprovalUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationssettings_list": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationssettings_list.js",
+            "title": "Lists all the managed configurations settings for the specified app. Only the ID and the name is set.",
+            "description": "Lists all the managed configurations settings for the specified app. Only the ID and the name is set.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationssettings_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_getPermissions": {
+            "main": "./lib/actions/androidenterprise_products_getPermissions.js",
+            "title": "Retrieves the Android app permissions required by this app.",
+            "description": "Retrieves the Android app permissions required by this app.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_getPermissions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_products_unapprove": {
+            "main": "./lib/actions/androidenterprise_products_unapprove.js",
+            "title": "Unapproves the specified product (and the relevant app permissions, if any)",
+            "description": "Unapproves the specified product (and the relevant app permissions, if any)",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_products_unapprove.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_sendTestPushNotification": {
+            "main": "./lib/actions/androidenterprise_enterprises_sendTestPushNotification.js",
+            "title": "Sends a test notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise.",
+            "description": "Sends a test notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_sendTestPushNotification.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_getServiceAccount": {
+            "main": "./lib/actions/androidenterprise_enterprises_getServiceAccount.js",
+            "title": "Returns a service account and credentials. The service account can be bound to the enterprise by calling setAccount. The service account is unique to this enterprise and EMM, and will be deleted if the enterprise is unbound. The credentials contain private key data and are not stored server-side.\n\nThis method can only be called after calling Enterprises.Enroll or Enterprises.CompleteSignup, and before Enterprises.SetAccount; at other times it will return an error.\n\nSubsequent calls after the first will generate a new, unique set of credentials, and invalidate the previously generated credentials.\n\nOnce the service account is bound to the enterprise, it can be managed using the serviceAccountKeys resource.",
+            "description": "Returns a service account and credentials. The service account can be bound to the enterprise by calling setAccount. The service account is unique to this enterprise and EMM, and will be deleted if the enterprise is unbound. The credentials contain private key data and are not stored server-side.\n\nThis method can only be called after calling Enterprises.Enroll or Enterprises.CompleteSignup, and before Enterprises.SetAccount; at other times it will return an error.\n\nSubsequent calls after the first will generate a new, unique set of credentials, and invalidate the previously generated credentials.\n\nOnce the service account is bound to the enterprise, it can be managed using the serviceAccountKeys resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_getServiceAccount.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_serviceaccountkeys_list": {
+            "main": "./lib/actions/androidenterprise_serviceaccountkeys_list.js",
+            "title": "Lists all active credentials for the service account associated with this enterprise. Only the ID and key type are returned. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+            "description": "Lists all active credentials for the service account associated with this enterprise. Only the ID and key type are returned. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_serviceaccountkeys_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_serviceaccountkeys_insert": {
+            "main": "./lib/actions/androidenterprise_serviceaccountkeys_insert.js",
+            "title": "Generates new credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.\n\nOnly the type of the key should be populated in the resource to be inserted.",
+            "description": "Generates new credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.\n\nOnly the type of the key should be populated in the resource to be inserted.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_serviceaccountkeys_insert.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_serviceaccountkeys_delete": {
+            "main": "./lib/actions/androidenterprise_serviceaccountkeys_delete.js",
+            "title": "Removes and invalidates the specified credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+            "description": "Removes and invalidates the specified credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_serviceaccountkeys_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_getStoreLayout": {
+            "main": "./lib/actions/androidenterprise_enterprises_getStoreLayout.js",
+            "title": "Returns the store layout for the enterprise. If the store layout has not been set, returns \"basic\" as the store layout type and no homepage.",
+            "description": "Returns the store layout for the enterprise. If the store layout has not been set, returns \"basic\" as the store layout type and no homepage.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_getStoreLayout.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_setStoreLayout": {
+            "main": "./lib/actions/androidenterprise_enterprises_setStoreLayout.js",
+            "title": "Sets the store layout for the enterprise. By default, storeLayoutType is set to \"basic\" and the basic store layout is enabled. The basic layout only contains apps approved by the admin, and that have been added to the available product set for a user (using the  setAvailableProductSet call). Apps on the page are sorted in order of their product ID value. If you create a custom store layout (by setting storeLayoutType = \"custom\" and setting a homepage), the basic store layout is disabled.",
+            "description": "Sets the store layout for the enterprise. By default, storeLayoutType is set to \"basic\" and the basic store layout is enabled. The basic layout only contains apps approved by the admin, and that have been added to the available product set for a user (using the  setAvailableProductSet call). Apps on the page are sorted in order of their product ID value. If you create a custom store layout (by setting storeLayoutType = \"custom\" and setting a homepage), the basic store layout is disabled.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_setStoreLayout.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_list": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_list.js",
+            "title": "Retrieves the details of all pages in the store.",
+            "description": "Retrieves the details of all pages in the store.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_insert": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_insert.js",
+            "title": "Inserts a new store page.",
+            "description": "Inserts a new store page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_insert.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_delete": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_delete.js",
+            "title": "Deletes a store page.",
+            "description": "Deletes a store page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_get": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_get.js",
+            "title": "Retrieves details of a store page.",
+            "description": "Retrieves details of a store page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_patch": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_patch.js",
+            "title": "Updates the content of a store page. This method supports patch semantics.",
+            "description": "Updates the content of a store page. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutpages_update": {
+            "main": "./lib/actions/androidenterprise_storelayoutpages_update.js",
+            "title": "Updates the content of a store page.",
+            "description": "Updates the content of a store page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutpages_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_list": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_list.js",
+            "title": "Retrieves the details of all clusters on the specified page.",
+            "description": "Retrieves the details of all clusters on the specified page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_insert": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_insert.js",
+            "title": "Inserts a new cluster in a page.",
+            "description": "Inserts a new cluster in a page.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_insert.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_delete": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_delete.js",
+            "title": "Deletes a cluster.",
+            "description": "Deletes a cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_get": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_get.js",
+            "title": "Retrieves details of a cluster.",
+            "description": "Retrieves details of a cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_patch": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_patch.js",
+            "title": "Updates a cluster. This method supports patch semantics.",
+            "description": "Updates a cluster. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_storelayoutclusters_update": {
+            "main": "./lib/actions/androidenterprise_storelayoutclusters_update.js",
+            "title": "Updates a cluster.",
+            "description": "Updates a cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_storelayoutclusters_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_enterprises_unenroll": {
+            "main": "./lib/actions/androidenterprise_enterprises_unenroll.js",
+            "title": "Unenrolls an enterprise from the calling EMM.",
+            "description": "Unenrolls an enterprise from the calling EMM.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_enterprises_unenroll.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_list": {
+            "main": "./lib/actions/androidenterprise_users_list.js",
+            "title": "Looks up a user by primary email address. This is only supported for Google-managed users. Lookup of the id is not needed for EMM-managed users because the id is already returned in the result of the Users.insert call.",
+            "description": "Looks up a user by primary email address. This is only supported for Google-managed users. Lookup of the id is not needed for EMM-managed users because the id is already returned in the result of the Users.insert call.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_insert": {
+            "main": "./lib/actions/androidenterprise_users_insert.js",
+            "title": "Creates a new EMM-managed user.\n\nThe Users resource passed in the body of the request should include an accountIdentifier and an accountType.\nIf a corresponding user already exists with the same account identifier, the user will be updated with the resource. In this case only the displayName field can be changed.",
+            "description": "Creates a new EMM-managed user.\n\nThe Users resource passed in the body of the request should include an accountIdentifier and an accountType.\nIf a corresponding user already exists with the same account identifier, the user will be updated with the resource. In this case only the displayName field can be changed.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_insert.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_delete": {
+            "main": "./lib/actions/androidenterprise_users_delete.js",
+            "title": "Deleted an EMM-managed user.",
+            "description": "Deleted an EMM-managed user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_get": {
+            "main": "./lib/actions/androidenterprise_users_get.js",
+            "title": "Retrieves a user's details.",
+            "description": "Retrieves a user's details.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_patch": {
+            "main": "./lib/actions/androidenterprise_users_patch.js",
+            "title": "Updates the details of an EMM-managed user.\n\nCan be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the displayName field can be changed. Other fields must either be unset or have the currently active value. This method supports patch semantics.",
+            "description": "Updates the details of an EMM-managed user.\n\nCan be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the displayName field can be changed. Other fields must either be unset or have the currently active value. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_update": {
+            "main": "./lib/actions/androidenterprise_users_update.js",
+            "title": "Updates the details of an EMM-managed user.\n\nCan be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the displayName field can be changed. Other fields must either be unset or have the currently active value.",
+            "description": "Updates the details of an EMM-managed user.\n\nCan be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the displayName field can be changed. Other fields must either be unset or have the currently active value.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_generateAuthenticationToken": {
+            "main": "./lib/actions/androidenterprise_users_generateAuthenticationToken.js",
+            "title": "Generates an authentication token which the device policy client can use to provision the given EMM-managed user account on a device. The generated token is single-use and expires after a few minutes.\n\nYou can provision a maximum of 10 devices per user.\n\nThis call only works with EMM-managed accounts.",
+            "description": "Generates an authentication token which the device policy client can use to provision the given EMM-managed user account on a device. The generated token is single-use and expires after a few minutes.\n\nYou can provision a maximum of 10 devices per user.\n\nThis call only works with EMM-managed accounts.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_generateAuthenticationToken.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_getAvailableProductSet": {
+            "main": "./lib/actions/androidenterprise_users_getAvailableProductSet.js",
+            "title": "Retrieves the set of products a user is entitled to access.",
+            "description": "Retrieves the set of products a user is entitled to access.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_getAvailableProductSet.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_setAvailableProductSet": {
+            "main": "./lib/actions/androidenterprise_users_setAvailableProductSet.js",
+            "title": "Modifies the set of products that a user is entitled to access (referred to as whitelisted products). Only products that are approved or products that were previously approved (products with revoked approval) can be whitelisted.",
+            "description": "Modifies the set of products that a user is entitled to access (referred to as whitelisted products). Only products that are approved or products that were previously approved (products with revoked approval) can be whitelisted.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_setAvailableProductSet.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_revokeDeviceAccess": {
+            "main": "./lib/actions/androidenterprise_users_revokeDeviceAccess.js",
+            "title": "Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed devices.\n\nThis call only works with EMM-managed accounts.",
+            "description": "Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed devices.\n\nThis call only works with EMM-managed accounts.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_revokeDeviceAccess.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_list": {
+            "main": "./lib/actions/androidenterprise_devices_list.js",
+            "title": "Retrieves the IDs of all of a user's devices.",
+            "description": "Retrieves the IDs of all of a user's devices.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_get": {
+            "main": "./lib/actions/androidenterprise_devices_get.js",
+            "title": "Retrieves the details of a device.",
+            "description": "Retrieves the details of a device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_patch": {
+            "main": "./lib/actions/androidenterprise_devices_patch.js",
+            "title": "Updates the device policy. This method supports patch semantics.",
+            "description": "Updates the device policy. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_update": {
+            "main": "./lib/actions/androidenterprise_devices_update.js",
+            "title": "Updates the device policy",
+            "description": "Updates the device policy",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_installs_list": {
+            "main": "./lib/actions/androidenterprise_installs_list.js",
+            "title": "Retrieves the details of all apps installed on the specified device.",
+            "description": "Retrieves the details of all apps installed on the specified device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_installs_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_installs_delete": {
+            "main": "./lib/actions/androidenterprise_installs_delete.js",
+            "title": "Requests to remove an app from a device. A call to get or list will still show the app as installed on the device until it is actually removed.",
+            "description": "Requests to remove an app from a device. A call to get or list will still show the app as installed on the device until it is actually removed.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_installs_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_installs_get": {
+            "main": "./lib/actions/androidenterprise_installs_get.js",
+            "title": "Retrieves details of an installation of an app on a device.",
+            "description": "Retrieves details of an installation of an app on a device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_installs_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_installs_patch": {
+            "main": "./lib/actions/androidenterprise_installs_patch.js",
+            "title": "Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary. This method supports patch semantics.",
+            "description": "Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_installs_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_installs_update": {
+            "main": "./lib/actions/androidenterprise_installs_update.js",
+            "title": "Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary.",
+            "description": "Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_installs_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsfordevice_list": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsfordevice_list.js",
+            "title": "Lists all the per-device managed configurations for the specified device. Only the ID is set.",
+            "description": "Lists all the per-device managed configurations for the specified device. Only the ID is set.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsfordevice_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsfordevice_delete": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsfordevice_delete.js",
+            "title": "Removes a per-device managed configuration for an app for the specified device.",
+            "description": "Removes a per-device managed configuration for an app for the specified device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsfordevice_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsfordevice_get": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsfordevice_get.js",
+            "title": "Retrieves details of a per-device managed configuration.",
+            "description": "Retrieves details of a per-device managed configuration.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsfordevice_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsfordevice_patch": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsfordevice_patch.js",
+            "title": "Adds or updates a per-device managed configuration for an app for the specified device. This method supports patch semantics.",
+            "description": "Adds or updates a per-device managed configuration for an app for the specified device. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsfordevice_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsfordevice_update": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsfordevice_update.js",
+            "title": "Adds or updates a per-device managed configuration for an app for the specified device.",
+            "description": "Adds or updates a per-device managed configuration for an app for the specified device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsfordevice_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_getState": {
+            "main": "./lib/actions/androidenterprise_devices_getState.js",
+            "title": "Retrieves whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+            "description": "Retrieves whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_getState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_devices_setState": {
+            "main": "./lib/actions/androidenterprise_devices_setState.js",
+            "title": "Sets whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+            "description": "Sets whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_devices_setState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_entitlements_list": {
+            "main": "./lib/actions/androidenterprise_entitlements_list.js",
+            "title": "Lists all entitlements for the specified user. Only the ID is set.",
+            "description": "Lists all entitlements for the specified user. Only the ID is set.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_entitlements_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_entitlements_delete": {
+            "main": "./lib/actions/androidenterprise_entitlements_delete.js",
+            "title": "Removes an entitlement to an app for a user.",
+            "description": "Removes an entitlement to an app for a user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_entitlements_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_entitlements_get": {
+            "main": "./lib/actions/androidenterprise_entitlements_get.js",
+            "title": "Retrieves details of an entitlement.",
+            "description": "Retrieves details of an entitlement.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_entitlements_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_entitlements_patch": {
+            "main": "./lib/actions/androidenterprise_entitlements_patch.js",
+            "title": "Adds or updates an entitlement to an app for a user. This method supports patch semantics.",
+            "description": "Adds or updates an entitlement to an app for a user. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_entitlements_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_entitlements_update": {
+            "main": "./lib/actions/androidenterprise_entitlements_update.js",
+            "title": "Adds or updates an entitlement to an app for a user.",
+            "description": "Adds or updates an entitlement to an app for a user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_entitlements_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsforuser_list": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsforuser_list.js",
+            "title": "Lists all the per-user managed configurations for the specified user. Only the ID is set.",
+            "description": "Lists all the per-user managed configurations for the specified user. Only the ID is set.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsforuser_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsforuser_delete": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsforuser_delete.js",
+            "title": "Removes a per-user managed configuration for an app for the specified user.",
+            "description": "Removes a per-user managed configuration for an app for the specified user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsforuser_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsforuser_get": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsforuser_get.js",
+            "title": "Retrieves details of a per-user managed configuration for an app for the specified user.",
+            "description": "Retrieves details of a per-user managed configuration for an app for the specified user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsforuser_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsforuser_patch": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsforuser_patch.js",
+            "title": "Adds or updates the managed configuration settings for an app for the specified user. If you support the Managed configurations iframe, you can apply managed configurations to a user by specifying an mcmId and its associated configuration variables (if any) in the request. Alternatively, all EMMs can apply managed configurations by passing a list of managed properties. This method supports patch semantics.",
+            "description": "Adds or updates the managed configuration settings for an app for the specified user. If you support the Managed configurations iframe, you can apply managed configurations to a user by specifying an mcmId and its associated configuration variables (if any) in the request. Alternatively, all EMMs can apply managed configurations by passing a list of managed properties. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsforuser_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_managedconfigurationsforuser_update": {
+            "main": "./lib/actions/androidenterprise_managedconfigurationsforuser_update.js",
+            "title": "Adds or updates the managed configuration settings for an app for the specified user. If you support the Managed configurations iframe, you can apply managed configurations to a user by specifying an mcmId and its associated configuration variables (if any) in the request. Alternatively, all EMMs can apply managed configurations by passing a list of managed properties.",
+            "description": "Adds or updates the managed configuration settings for an app for the specified user. If you support the Managed configurations iframe, you can apply managed configurations to a user by specifying an mcmId and its associated configuration variables (if any) in the request. Alternatively, all EMMs can apply managed configurations by passing a list of managed properties.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_managedconfigurationsforuser_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_revokeToken": {
+            "main": "./lib/actions/androidenterprise_users_revokeToken.js",
+            "title": "Revokes a previously generated token (activation code) for the user.",
+            "description": "Revokes a previously generated token (activation code) for the user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_revokeToken.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_users_generateToken": {
+            "main": "./lib/actions/androidenterprise_users_generateToken.js",
+            "title": "Generates a token (activation code) to allow this user to configure their managed account in the Android Setup Wizard. Revokes any previously generated token.\n\nThis call only works with Google managed accounts.",
+            "description": "Generates a token (activation code) to allow this user to configure their managed account in the Android Setup Wizard. Revokes any previously generated token.\n\nThis call only works with Google managed accounts.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_users_generateToken.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_list": {
+            "main": "./lib/actions/androidenterprise_webapps_list.js",
+            "title": "Retrieves the details of all web apps for a given enterprise.",
+            "description": "Retrieves the details of all web apps for a given enterprise.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_insert": {
+            "main": "./lib/actions/androidenterprise_webapps_insert.js",
+            "title": "Creates a new web app for the enterprise.",
+            "description": "Creates a new web app for the enterprise.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_insert.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_delete": {
+            "main": "./lib/actions/androidenterprise_webapps_delete.js",
+            "title": "Deletes an existing web app.",
+            "description": "Deletes an existing web app.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_get": {
+            "main": "./lib/actions/androidenterprise_webapps_get.js",
+            "title": "Gets an existing web app.",
+            "description": "Gets an existing web app.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_patch": {
+            "main": "./lib/actions/androidenterprise_webapps_patch.js",
+            "title": "Updates an existing web app. This method supports patch semantics.",
+            "description": "Updates an existing web app. This method supports patch semantics.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_webapps_update": {
+            "main": "./lib/actions/androidenterprise_webapps_update.js",
+            "title": "Updates an existing web app.",
+            "description": "Updates an existing web app.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_webapps_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "androidenterprise_permissions_get": {
+            "main": "./lib/actions/androidenterprise_permissions_get.js",
+            "title": "Retrieves details of an Android app permission for display to an enterprise admin.",
+            "description": "Retrieves details of an Android app permission for display to an enterprise admin.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/androidenterprise_permissions_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

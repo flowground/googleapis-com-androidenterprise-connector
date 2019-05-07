@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "properties": {
+        "deviceId": {
+            "required": true,
+            "type": "string"
+        },
+        "enterpriseId": {
+            "required": true,
+            "type": "string"
+        },
+        "userId": {
+            "required": true,
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The state of a user's device, as accessed by the getState and setState methods on device resources.",
+            "properties": {
+                "accountState": {
+                    "description": "The state of the Google account on the device. \"enabled\" indicates that the Google account on the device can be used to access Google services (including Google Play), while \"disabled\" means that it cannot. A new device is initially in the \"disabled\" state.",
+                    "type": "string"
+                },
+                "kind": {
+                    "default": "androidenterprise#deviceState",
+                    "description": "Identifies what kind of resource this is. Value: the fixed string \"androidenterprise#deviceState\".",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
